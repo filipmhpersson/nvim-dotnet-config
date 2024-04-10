@@ -3,6 +3,7 @@
 return {
     {
         "theprimeagen/harpoon",
+        version = "harpoon2",
         config = function()
             local harpoon = require("harpoon")
 
