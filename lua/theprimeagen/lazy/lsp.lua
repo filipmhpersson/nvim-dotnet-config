@@ -28,6 +28,7 @@ return {
             ensure_installed = {
                 "lua_ls",
                 "csharp_ls",
+                "gopls"
             },
             handlers = {
                 function(server_name) -- default handler (optional)
@@ -36,7 +37,17 @@ return {
                         capabilities = capabilities
                     }
                 end,
-
+                ["csharp_ls"] = function()
+                    local lspconfig = require("lspconfig")
+                   lspconfig.csharp_ls.setup {
+                        handlers = {
+                            ["textdocument/definition"] = require("csharpls_extended").handler,
+                        },
+                        on_attach = function()
+                            vim.keymap.set('n', 'gd', function() require('csharpls_extended').lsp_definitions(); end, { noremap = true, desc = "go to definition", buffer = true })
+                        end
+                    }
+                end,
                 ["lua_ls"] = function()
                     local lspconfig = require("lspconfig")
                     lspconfig.lua_ls.setup {

@@ -10,6 +10,10 @@ return {
                 require("trouble").toggle()
             end)
 
+            vim.keymap.set("n", "<leader>tw", function()
+                require("trouble").toggle("workspace_diagnostics")
+            end)
+
             vim.keymap.set("n", "[t", function()
                 require("trouble").next({skip_groups = true, jump = true});
             end)
