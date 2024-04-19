@@ -27,16 +27,27 @@ return {
         require("mason-lspconfig").setup({
             ensure_installed = {
                 "lua_ls",
-                "csharp_ls",
+                "gopls",
+                "omnisharp",
+                "tsserver"
             },
             handlers = {
                 function(server_name) -- default handler (optional)
-
                     require("lspconfig")[server_name].setup {
                         capabilities = capabilities
                     }
                 end,
 
+                ["omnisharp"] = function()
+                    local lspconfig = require("lspconfig")
+                    lspconfig.omnisharp.setup {
+                        capabilities = capabilities,
+                        enable_roslyn_analysers = true,
+                        enable_import_completion = true,
+                        organize_imports_on_format = true,
+                        enable_decompilation_support = true,
+                        filetypes = { 'cs', 'vb', 'csproj', 'sln', 'slnx', 'props', 'csx', 'props', 'targets' }                    }
+                    end,
                 ["lua_ls"] = function()
                     local lspconfig = require("lspconfig")
                     lspconfig.lua_ls.setup {
