@@ -11,6 +11,7 @@ return {
         "L3MON4D3/LuaSnip",
         "saadparwaiz1/cmp_luasnip",
         "j-hui/fidget.nvim",
+        "Hoffs/omnisharp-extended-lsp.nvim",
     },
 
     config = function()
@@ -42,6 +43,9 @@ return {
                     local lspconfig = require("lspconfig")
                     lspconfig.omnisharp.setup {
                         capabilities = capabilities,
+                        handlers = {
+                            ["textDocument/definition"] = require('omnisharp_extended').handler,
+                        },
                         enable_roslyn_analysers = true,
                         enable_import_completion = true,
                         organize_imports_on_format = true,
