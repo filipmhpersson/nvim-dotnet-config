@@ -1,5 +1,5 @@
 function ColorMyPencils(color)
-    color = color or "tokyonight"
+    color = color or "rose-pine"
     vim.cmd.colorscheme(color)
 
     vim.api.nvim_set_hl(0, "Normal", { bg = "none" })
@@ -13,13 +13,22 @@ return {
         config = function()
             require('lualine').setup {
                 options = {
-                    theme = 'tokyonight'
+                    theme = 'auto'
                 }
             }
         end
     },
 
-    -- { "catppuccin/nvim", name = "catppuccin", priority = 1000 },
+    {
+        "catppuccin/nvim",
+        name = "catppuccin",
+        priority = 1000,
+        config = function()
+            require('catppuccin').setup({
+                flavour = 'macchiato'
+        })
+        end
+    },
     {
         "folke/tokyonight.nvim",
         config = function()
@@ -31,8 +40,6 @@ return {
                 terminal_colors = true, -- Configure the colors used when opening a `:terminal` in Neovim
                 styles = {
                     -- Style to be applied to different syntax groups
-                    -- Value is any valid attr-list value for `:help nvim_set_hl`
-                    comments = { italic = false },
                     keywords = { italic = false },
                     -- Background styles. Can be "dark", "transparent" or "normal"
                     sidebars = "dark", -- style for sidebars, see below
@@ -47,7 +54,10 @@ return {
         name = "rose-pine",
         config = function()
             require('rose-pine').setup({
-                disable_background = true,
+                variant = 'moon',
+                styles = {
+                   italic = false
+                }
             })
 
             vim.cmd("colorscheme rose-pine")
